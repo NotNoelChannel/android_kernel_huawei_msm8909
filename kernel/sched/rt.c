@@ -1660,8 +1660,7 @@ static struct rq *find_lock_lowest_rq(struct task_struct *task, struct rq *rq)
 	int cpu;
 	if (lowest_rq->rt.highest_prio.curr <= task->prio) {
  		lowest_rq = NULL;
- 		break;
- 		}
+ 	}
 	for (tries = 0; tries < RT_MAX_TRIES; tries++) {
 		cpu = find_lowest_rq(task);
 
