@@ -1326,7 +1326,12 @@ select_task_rq_rt(struct task_struct *p, int sd_flag, int flags)
 	    (p->nr_cpus_allowed > 1)) {
 		int target = find_lowest_rq(p);
 
-		if (target != -1)
+		/*
+		* Don't bother moving it if the destination CPU is
+		* not running a lower priority task.
+		*/
+ 		if (target != -1 &&
+ 		 	p->prio < cpu_rq(target)->rt.highest_prio.curr)
 			cpu = target;
 	}
 	rcu_read_unlock();
@@ -1653,7 +1658,10 @@ static struct rq *find_lock_lowest_rq(struct task_struct *task, struct rq *rq)
 	struct rq *lowest_rq = NULL;
 	int tries;
 	int cpu;
-
+	if (lowest_rq->rt.highest_prio.curr <= task->prio) {
+ 		lowest_rq = NULL;
+ 		break;
+ 		}
 	for (tries = 0; tries < RT_MAX_TRIES; tries++) {
 		cpu = find_lowest_rq(task);
 
