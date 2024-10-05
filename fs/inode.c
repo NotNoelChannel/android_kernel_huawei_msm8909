@@ -1626,8 +1626,6 @@ int file_remove_suid(struct file *file)
 		return killpriv;
 	if (killpriv)
 		error = security_inode_killpriv(dentry);
-	if (!error && killsuid)
-		error = __remove_suid(dentry, killsuid);
 	if (!error)
 		inode_has_no_xattr(inode);
 
