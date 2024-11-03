@@ -15,8 +15,16 @@ jobs:
       run: |
         sudo apt-get install lib32z1 ccache autoconf
         sudo git clone --depth 1 --branch android-6.0.1_r11 --single-branch https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8 /opt/toolchains/arm-eabi-4.8/
-    - name: Building Kernel
+    - name: Patching kernel and building it
       run: |
+        wget https://gitlab.postmarketos.org/postmarketOS/pmaports/-/raw/25180961c89eedd336e8ecd24050e306710215d2/device/testing/linux-huawei-y560/05_fix_mdp3_ctrl_off.patch
+        wget https://gitlab.postmarketos.org/postmarketOS/pmaports/-/raw/25180961c89eedd336e8ecd24050e306710215d2/device/testing/linux-huawei-y560/00_fix_return_address.patch
+        wget https://gitlab.postmarketos.org/postmarketOS/pmaports/-/blob/25180961c89eedd336e8ecd24050e306710215d2/device/testing/linux-huawei-y560/06_fix_mdss_fb_rgb_mode.patch
+        wget https://gitlab.postmarketos.org/postmarketOS/pmaports/-/blob/25180961c89eedd336e8ecd24050e306710215d2/device/testing/linux-huawei-y560/07_fix_mdss_fb_refresh_rate.patch
+        patch -p1 < 05_fix_mdp3_ctrl_off.patch
+        patch -p1 < 00_fix_return_address.patch
+        patch -p1 < 06_fix_mdss_fb_rgb_mode.patch
+        patch -p1 < 07_fix_mdss_fb_refresh_rate.patch
         export ARCH=arm
         export CROSS_COMPILE=/opt/toolchains/arm-eabi-4.8/bin/arm-eabi-
         export KBUILD_BUILD_USER=notnoelchannel
