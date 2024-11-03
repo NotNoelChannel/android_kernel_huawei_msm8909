@@ -19,8 +19,8 @@ jobs:
       run: |
         wget https://gitlab.postmarketos.org/postmarketOS/pmaports/-/raw/25180961c89eedd336e8ecd24050e306710215d2/device/testing/linux-huawei-y560/05_fix_mdp3_ctrl_off.patch
         wget https://gitlab.postmarketos.org/postmarketOS/pmaports/-/raw/25180961c89eedd336e8ecd24050e306710215d2/device/testing/linux-huawei-y560/00_fix_return_address.patch
-        wget https://gitlab.postmarketos.org/postmarketOS/pmaports/-/blob/25180961c89eedd336e8ecd24050e306710215d2/device/testing/linux-huawei-y560/06_fix_mdss_fb_rgb_mode.patch
-        wget https://gitlab.postmarketos.org/postmarketOS/pmaports/-/blob/25180961c89eedd336e8ecd24050e306710215d2/device/testing/linux-huawei-y560/07_fix_mdss_fb_refresh_rate.patch
+        wget https://gitlab.postmarketos.org/postmarketOS/pmaports/-/raw/25180961c89eedd336e8ecd24050e306710215d2/device/testing/linux-huawei-y560/06_fix_mdss_fb_rgb_mode.patch
+        wget https://gitlab.postmarketos.org/postmarketOS/pmaports/-/raw/25180961c89eedd336e8ecd24050e306710215d2/device/testing/linux-huawei-y560/07_fix_mdss_fb_refresh_rate.patch
         patch -p1 < 05_fix_mdp3_ctrl_off.patch
         patch -p1 < 00_fix_return_address.patch
         patch -p1 < 06_fix_mdss_fb_rgb_mode.patch
