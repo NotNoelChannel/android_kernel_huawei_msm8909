@@ -4387,6 +4387,9 @@ unsigned long long task_delta_exec(struct task_struct *p)
 	unsigned long flags;
 	struct rq *rq;
 	u64 ns = 0;
+	
+	if (!p->on_cpu)
+		return p->se.sum_exec_runtime;
 
 	rq = task_rq_lock(p, &flags);
 	ns = do_task_delta_exec(p, rq);
