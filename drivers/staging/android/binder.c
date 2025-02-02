@@ -1619,17 +1619,11 @@ static void binder_transaction(struct binder_proc *proc,
 			if (hdr->type == BINDER_TYPE_BINDER)
 				hdr->type = BINDER_TYPE_HANDLE;
 			else
-<<<<<<< HEAD
-				fp->type = BINDER_TYPE_WEAK_HANDLE;
-			fp->handle = ref->desc;
-			binder_inc_ref(ref, fp->type == BINDER_TYPE_HANDLE,
-=======
 				hdr->type = BINDER_TYPE_WEAK_HANDLE;
 			fp->binder = 0;
 			fp->handle = ref->desc;
 			fp->cookie = 0;
 			binder_inc_ref(ref, hdr->type == BINDER_TYPE_HANDLE,
->>>>>>> 883a20a9bb6 (android: binder: split flat_binder_object.)
 				       &thread->todo);
 
 			trace_binder_transaction_node_to_ref(t, node, ref);
@@ -1640,16 +1634,13 @@ static void binder_transaction(struct binder_proc *proc,
 		} break;
 		case BINDER_TYPE_HANDLE:
 		case BINDER_TYPE_WEAK_HANDLE: {
-<<<<<<< HEAD
-			struct binder_ref *ref = binder_get_ref(proc, fp->handle);
-=======
+
 			struct flat_binder_object *fp;
 			struct binder_ref *ref;
 
 			fp = to_flat_binder_object(hdr);
 			ref = binder_get_ref(proc, fp->handle,
 					     hdr->type == BINDER_TYPE_HANDLE);
->>>>>>> 883a20a9bb6 (android: binder: split flat_binder_object.)
 			if (ref == NULL) {
 				binder_user_error("%d:%d got transaction with invalid handle, %d\n",
 						proc->pid,
@@ -1684,14 +1675,10 @@ static void binder_transaction(struct binder_proc *proc,
 					goto err_binder_get_ref_for_node_failed;
 				}
 				fp->handle = new_ref->desc;
-<<<<<<< HEAD
-				binder_inc_ref(new_ref, fp->type == BINDER_TYPE_HANDLE, NULL);
-=======
 				fp->cookie = 0;
 				binder_inc_ref(new_ref,
 					       hdr->type == BINDER_TYPE_HANDLE,
 					       NULL);
->>>>>>> 883a20a9bb6 (android: binder: split flat_binder_object.)
 				trace_binder_transaction_ref_to_ref(t, ref,
 								    new_ref);
 				binder_debug(BINDER_DEBUG_TRANSACTION,
@@ -1744,12 +1731,8 @@ static void binder_transaction(struct binder_proc *proc,
 				     "        fd %d -> %d\n", fp->fd,
 				     target_fd);
 			/* TODO: fput? */
-<<<<<<< HEAD
-			fp->handle = target_fd;
-=======
 			fp->pad_binder = 0;
 			fp->fd = target_fd;
->>>>>>> 883a20a9bb6 (android: binder: split flat_binder_object.)
 		} break;
 
 		default:
